@@ -213,6 +213,7 @@ body {
         display: block;
         margin: 0 auto;
     }
+
     .btn--gray {
         margin-top: 0;
     }
@@ -245,6 +246,7 @@ body {
     .btn--big {
         margin: 10px 10px;
     }
+
     .question-area {
         padding: 10px 0;
     }
