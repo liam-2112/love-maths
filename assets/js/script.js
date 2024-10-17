@@ -1,10 +1,10 @@
-
 // Wait for the DOM to finish loading before running the game
 // Get the button elements and add event listeners to them
 
 document.addEventListener("DOMContentLoaded", function() {
     let buttons = document.getElementsByTagName("button");
 
+    // Tells the computer when clicked with mouse pointer
     for (let button of buttons) {
         button.addEventListener("click", function() {
             if (this.getAttribute("data-type") === "submit") {
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Tells the computer that enter key is accept
     document.getElementById("answer-box").addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
             checkAnswer();
@@ -45,6 +46,8 @@ function runGame(gameType) {
         displayMultiplyQuestion(num1, num2);
     } else if (gameType === "subtract" ) {
         displaySubtractQuestion(num1, num2);
+    } else if (gameType === "division"){
+	    displayDivisionQuestion(num1,num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
@@ -84,12 +87,15 @@ function calculateCorrectAnswer() {
     let operand2 = parseInt(document.getElementById('operand2').innerText);
     let operator = document.getElementById("operator").innerText;
 
+    // Game type
     if (operator === "+") {
         return [operand1 + operand2, "addition"];
     } else if (operator === "x") {
         return [operand1 * operand2, "multiply"];
     } else if (operator === "-") {
         return [operand1 - operand2, "subtract"];
+    } else if (operator ==="/") {
+		return [operand1 / operand2, "division"];
     } else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
@@ -117,6 +123,7 @@ function incrementWrongAnswer() {
     
 }
 
+// Addition setup
 function displayAdditionQuestion(operand1, operand2) {
 
     document.getElementById('operand1').textContent = operand1;
@@ -125,6 +132,7 @@ function displayAdditionQuestion(operand1, operand2) {
     
 }
 
+// Subtraction setup
 function displaySubtractQuestion(operand1, operand2) {
 
     document.getElementById("operand1").textContent = operand1 > operand2 ? operand1 : operand2;
@@ -133,10 +141,19 @@ function displaySubtractQuestion(operand1, operand2) {
 
 }
 
+// Multiplication setup
 function displayMultiplyQuestion(operand1, operand2) {
 
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "x";
 
+}
+
+// Division setup
+function displayDivisionQuestion(operand1, operand2) {
+    operand1 = operand1 * operand2;
+    document.getElementById("operand1").textContent = operand1;
+    document.getElementById("operand2").textContent = operand2;
+    document.getElementById("operator").textContent = "/";
 }
